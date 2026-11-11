@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#211344">
+    <title>Memory Mayhem | The Royal Debt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+
+        <header class="game-header">
+            <div class="brand-mark">👑</div>
+            <div>
+                <h1>MEMORY MAYHEM</h1>
+                <p>THE ROYAL DEBT</p>
+            </div>
+            <div class="header-decoration">✨</div>
+        </header>
+
+        <!-- MAIN MENU -->
+
+        <section id="startScreen" class="screen menu-screen">
+
+            <div class="menu-topline">
+                <span>⚔️ ROYAL CHALLENGE</span>
+                <span>🏰 CAMPAIGN MODE</span>
+            </div>
+
+            <div class="menu-hero">
+                <div class="king-art">🤴</div>
+
+                <div class="speech-bubble">
+                    "YOU OWE ME 10,000 GOLD COINS!"
+                </div>
+
+                <h2>THE KING HAS YOUR MONEY!</h2>
+
+                <p>
+                    King Reginald has accused you of stealing
+                    from his royal treasury.
+                </p>
+
+                <p>
+                    Challenge him in a magical memory battle.
+                    Match cards, earn treasure and defeat
+                    the king to clear your debt!
+                </p>
+            </div>
+
+            <div class="campaign-card">
+
+                <div class="campaign-heading">
+                    <span>🏆 YOUR ADVENTURE</span>
+                    <span id="menuLevel">LEVEL 1 / 5</span>
+                </div>
+
+                <div class="campaign-progress">
+                    <div id="menuProgressBar"></div>
+                </div>
+
+                <div class="menu-stat-grid">
+                    <div class="menu-stat">
+                        <span>💰</span>
+                        <small>GOLD</small>
+                        <strong id="menuGold">0</strong>
+                    </div>
+
+                    <div class="menu-stat">
+                        <span>⭐</span>
+                        <small>STARS</small>
+                        <strong id="menuStars">0</strong>
+                    </div>
+
+                    <div class="menu-stat">
+                        <span>🎮</span>
+                        <small>BATTLES</small>
+                        <strong id="menuBattles">0</strong>
+                    </div>
+                </div>
+
+                <div class="next-opponent">
+                    <span>👑</span>
+                    <div>
+                        <strong id="menuOpponent">King Reginald</strong>
+                        <small id="menuDifficulty">A royal beginner challenge</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <button id="startButton" class="main-action">
+                ⚔️ START ADVENTURE
+            </button>
+
+            <p class="menu-footer">
+                ✨ Remember wisely. Play cleverly. Take the treasure!
+            </p>
+
+        </section>
+
+        <!-- GAME SCREEN -->
+
+        <section id="gameScreen" class="screen game-screen hidden">
+
+            <div class="level-banner">
+                <div>
+                    <small>CAMPAIGN PROGRESS</small>
+                    <h2 id="levelDisplay">LEVEL 1</h2>
+                    <span id="levelSubtitle">The Royal Treasury</span>
+                </div>
+
+                <div class="level-badge">
+                    <span>⭐</span>
+                    <strong id="levelPairCount">8 PAIRS</strong>
+                </div>
+            </div>
+
+            <div class="battle-info">
+
+                <div class="fighter king-fighter">
+                    <div class="fighter-icon">🤴</div>
+                    <h3>KING REGINALD</h3>
+                    <p>Pairs: <span id="kingScore">0</span></p>
+                    <small id="kingStatus">Waiting...</small>
+                    <div class="fighter-points">
+                        <span>👑</span>
+                        <strong id="kingPoints">0</strong>
+                        <small>POINTS</small>
+                    </div>
+                </div>
+
+                <div class="fighter player">
+                    <div class="fighter-icon">🧑‍🚀</div>
+                    <h3>YOU</h3>
+                    <p>Pairs: <span id="playerScore">0</span></p>
+                    <small id="playerStatus">Ready!</small>
+                    <div class="fighter-points">
+                        <span>⭐</span>
+                        <strong id="playerPoints">0</strong>
+                        <small>POINTS</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- LIVE GAME HUD -->
+
+            <div class="game-hud">
+
+                <div class="hud-item">
+                    <span>💰</span>
+                    <div>
+                        <small>GOLD</small>
+                        <strong id="goldDisplay">0</strong>
+                    </div>
+                </div>
+
+                <div class="hud-item">
+                    <span>🔥</span>
+                    <div>
+                        <small>STREAK</small>
+                        <strong id="streakDisplay">0</strong>
+                    </div>
+                </div>
+
+                <div class="hud-item">
+                    <span>🏆</span>
+                    <div>
+                        <small>BEST STREAK</small>
+                        <strong id="bestStreakDisplay">0</strong>
+                    </div>
+                </div>
+
+                <div class="hud-item">
+                    <span>🎯</span>
+                    <div>
+                        <small>PROGRESS</small>
+                        <strong id="matchProgress">0 / 8</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="progress-track">
+                <div id="matchProgressBar"></div>
+            </div>
+
+            <div class="game-status">
+                <span id="turnDisplay">YOUR TURN</span>
+                <span id="message" role="status" aria-live="polite">
+                    Find matching cards!
+                </span>
+            </div>
+
+            <div class="board-heading">
+                <div class="board-title">
+                    <span>🏰</span>
+                    <div>
+                        <h2>THE ROYAL MEMORY BOARD</h2>
+                        <p>Find matching pairs to collect points!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cardBoard" class="card-board"></div>
+
+            <!-- ABILITIES -->
+
+            <section class="abilities">
+                <div class="ability-heading">
+                    <span>✨</span>
+                    <div>
+                        <h3>YOUR SPECIAL POWERS</h3>
+                        <p>Use your powers wisely. One use each!</p>
+                    </div>
+                </div>
+
+                <div class="ability-buttons">
+                    <button data-ability="hint">
+                        🔮 <span>Lucky Hint</span>
+                    </button>
+
+                    <button data-ability="swap">
+                        🪄 <span>Switcheroo</span>
+                    </button>
+
+                    <button data-ability="shuffle">
+                        🌀 <span>Royal Shuffle</span>
+                    </button>
+
+                    <button data-ability="chaos">
+                        💥 <span>Chaos Card</span>
+                    </button>
+
+                    <button data-ability="shield">
+                        🛡️ <span>Royal Shield</span>
+                    </button>
+                </div>
+            </section>
+
+        </section>
+
+        <!-- END SCREEN -->
+
+        <section id="endScreen" class="screen end-screen hidden">
+
+            <div id="resultIcon" class="king-art">🏆</div>
+
+            <div class="result-label">BATTLE REPORT</div>
+
+            <h2 id="resultTitle">Battle Complete!</h2>
+
+            <p id="resultMessage"></p>
+
+            <div id="battleReport" class="battle-report">
+
+                <div class="report-header">
+                    <span>📜</span>
+                    <div>
+                        <h3>ROYAL BATTLE REPORT</h3>
+                        <small id="reportLevel">LEVEL 1</small>
+                    </div>
+                </div>
+
+                <div class="report-score-grid">
+
+                    <div class="report-box">
+                        <small>YOUR POINTS</small>
+                        <strong id="reportPlayerPoints">0</strong>
+                    </div>
+
+                    <div class="report-box">
+                        <small>KING'S POINTS</small>
+                        <strong id="reportKingPoints">0</strong>
+                    </div>
+
+                    <div class="report-box">
+                        <small>YOUR PAIRS</small>
+                        <strong id="reportPlayerPairs">0</strong>
+                    </div>
+
+                    <div class="report-box">
+                        <small>KING'S PAIRS</small>
+                        <strong id="reportKingPairs">0</strong>
+                    </div>
+
+                </div>
+
+                <div class="report-details">
+
+                    <div>
+                        <span>🎯 Accuracy</span>
+                        <strong id="reportAccuracy">0%</strong>
+                    </div>
+
+                    <div>
+                        <span>🃏 Attempts</span>
+                        <strong id="reportAttempts">0</strong>
+                    </div>
+
+                    <div>
+                        <span>🔥 Best streak</span>
+                        <strong id="reportStreak">0</strong>
+                    </div>
+
+                    <div>
+                        <span>👑 King mistakes</span>
+                        <strong id="reportKingMistakes">0</strong>
+                    </div>
+
+                    <div>
+                        <span>⭐ Stars earned</span>
+                        <strong id="reportStars">0</strong>
+                    </div>
+
+                    <div>
+                        <span>💰 Gold earned</span>
+                        <strong id="reportGold">0</strong>
+                    </div>
+
+                </div>
+
+                <div class="report-reward">
+                    <span>🎁</span>
+                    <div>
+                        <strong id="reportRewardTitle">ROYAL REWARD</strong>
+                        <p id="reportRewardText">Your battle rewards.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="end-buttons">
+                <button id="restartButton">
+                    🔄 REPLAY LEVEL
+                </button>
+
+                <button id="menuButton" class="secondary-button">
+                    🏰 MAIN MENU
+                </button>
+
+                <button id="nextLevelButton" class="main-action hidden">
+                    ⭐ NEXT LEVEL
+                </button>
+            </div>
+
+        </section>
+
+        <footer class="game-footer">
+            <span>👑 MEMORY MAYHEM</span>
+            <span>THE ROYAL DEBT</span>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
